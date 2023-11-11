@@ -1,0 +1,18 @@
+﻿SELECT * from WordMeaning as M, BaseLanguageWord as B, TranslatedWord as T where M.BaseLanguageWord_ID=B.ID AND M.TranslatedWord_ID=T.ID;
+
+SELECT 
+T.Word         as     TranslatedWord			,
+B.Word         as      BaseLanguageWord		,
+B.ID           as      BaseLanguageWord_ID		,
+T.ID           as      TranslateWord_ID		,
+M.ID           as      WordMeaning_ID			,
+M.PartOfSpeech                                 ,
+M.LastUpdateTime                               ,
+T.DifficultLevel                               ,
+M.Description                                  ,
+T.IsDifficultWord                              ,
+T.IsFavourite                                   
+from WordMeaning as M INNER JOIN BaseLanguageWord as B ON
+M.BaseLanguageWord_ID=B.ID 
+INNER JOIN TranslatedWord as T ON
+M.TranslatedWord_ID=T.ID;

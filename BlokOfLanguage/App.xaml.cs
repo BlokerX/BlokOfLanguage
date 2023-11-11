@@ -5,7 +5,8 @@ public partial class App : Application
 	public App()
 	{
 		InitializeComponent();
-
-		MainPage = new AppShell();
+		// todo
+		Constants.DB = new DataBase.BlokOfLanguageDatabase();
+        MainPage = new AppShell();
 	}
 }
