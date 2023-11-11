@@ -1,4 +1,6 @@
-namespace BlokOfLanguage.Pages;
+using BlokOfLanguage.DataBase;
+
+namespace BlokOfLanguage.Pages.Views;
 
 public partial class WordExplanationPage : ContentPage
 {
@@ -6,4 +8,5 @@ public partial class WordExplanationPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
 }

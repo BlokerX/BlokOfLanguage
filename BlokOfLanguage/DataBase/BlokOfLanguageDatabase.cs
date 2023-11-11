@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using BlokOfLanguage.DataBase.EntityObjects;
+using SQLite;
 using System.Diagnostics;
 
 namespace BlokOfLanguage.DataBase
@@ -30,7 +31,7 @@ namespace BlokOfLanguage.DataBase
 
         async private void testFn()
         {
-            var result = await GetWordObjects();
+            var result = await GetWordObjectsAsync();
             foreach (var item in result)
             {
                 Debug.WriteLine("[OBJECT]" +
@@ -50,38 +51,101 @@ namespace BlokOfLanguage.DataBase
             Debug.WriteLine("s");
         }
 
-        public async Task<List<WordObject>> GetWordObjects()
+        public async Task<List<WordObject>> GetWordObjectsAsync()
         {
             await Init();
+            return Database.QueryAsync<WordObject>(query:
 
-            var q = "SELECT " +
-                     "T.Word         as      \"TranslatedWord\"      , " +
-                     "B.Word         as      \"BaseLanguageWord\"    , " +
-                     "B.ID           as      \"BaseLanguageWord_ID\" , " +
-                     "T.ID           as      \"TranslateWord_ID\"    , " +
-                     "M.ID           as      \"WordMeaning_ID\"      , " +
-                     "M.PartOfSpeech                                 , " +
-                     "M.LastUpdateTime                               , " +
-                     "T.DifficultLevel                               , " +
-                     "M.Description                                  , " +
-                     "T.IsDifficultWord                              , " +
-                     "T.IsFavourite                                    " +
-                     " from WordMeaning as M " +
-                     "INNER JOIN BaseLanguageWord as B " +
-                     "ON M.BaseLanguageWord_ID=B.ID " +
-                     "INNER JOIN TranslatedWord as T " +
-                     "ON M.TranslatedWord_ID=T.ID;";
+                " SELECT " +
 
-            return Database.QueryAsync<WordObject>(q).Result;
+                " T.Word         as      \"TranslatedWord\"      , " +
+                " B.Word         as      \"BaseLanguageWord\"    , " +
+                " B.ID           as      \"BaseLanguageWord_ID\" , " +
+                " T.ID           as      \"TranslateWord_ID\"    , " +
+                " M.ID           as      \"WordMeaning_ID\"      , " +
+                " M.PartOfSpeech                                 , " +
+                " M.LastUpdateTime                               , " +
+                " T.DifficultLevel                               , " +
+                " M.Description                                  , " +
+                " T.IsDifficultWord                              , " +
+                " T.IsFavourite                                    " +
+
+                "  from WordMeaning as M                           " +
+
+                " INNER JOIN BaseLanguageWord as B                 " +
+                " ON M.BaseLanguageWord_ID=B.ID                    " +
+
+                " INNER JOIN TranslatedWord as T                   " +
+                " ON M.TranslatedWord_ID=T.ID                     ;"
+
+                ).Result;
         }
 
-        //#region sample methods
+        #region SendQueryToDatabase
 
-        //public async Task<List<WordMeaning>> GetItemsAsync()
-        //{
-        //    await Init();
-        //    return await Database.Table<WordMeaning>().ToListAsync();
-        //}
+        public async Task<List<BaseLanguageWord>> SelectQueryAboutBaseLanguageWordObjectsAsync(string query)
+        {
+            await Init();
+            return Database.QueryAsync<BaseLanguageWord>(query).Result;
+        }
+
+        public async Task<List<TranslatedWord>> SelectQueryAboutTranslatedWordObjectsAsync(string query)
+        {
+            await Init();
+            return Database.QueryAsync<TranslatedWord>(query).Result;
+        }
+
+        public async Task<List<WordMeaning>> SelectQueryAboutWordMeaningObjectsAsync(string query)
+        {
+            await Init();
+            return Database.QueryAsync<WordMeaning>(query).Result;
+        }
+
+        #endregion
+
+        #region Get new id
+
+        public async Task<int> GetBaseLanguageWordNewIDAsync()
+        {
+            await Init();
+            return Database.QueryAsync<BaseLanguageWord>("SELECT id FROM BaseLanguageWord ORDER BY id DESC LIMIT 1;").Result.First().ID + 1;
+        }
+
+        public async Task<int> GetTranslatedWordNewIDAsync()
+        {
+            await Init();
+            return Database.QueryAsync<TranslatedWord>("SELECT id FROM TranslatedWord ORDER BY id DESC LIMIT 1;").Result.First().ID + 1;
+        }
+
+        public async Task<int> GetWordMeaningNewIDAsync()
+        {
+            await Init();
+            return Database.QueryAsync<WordMeaning>("SELECT id FROM WordMeaning ORDER BY id DESC LIMIT 1;").Result.First().ID + 1;
+        }
+
+        #endregion
+
+        #region Get objects from table
+
+        public async Task<List<BaseLanguageWord>> GetBaseLanguageWordObjectsAsync()
+        {
+            await Init();
+            return await Database.Table<BaseLanguageWord>().ToListAsync();
+        }
+
+        public async Task<List<TranslatedWord>> GetTranslatedWordObjectsAsync()
+        {
+            await Init();
+            return await Database.Table<TranslatedWord>().ToListAsync();
+        }
+
+        public async Task<List<WordMeaning>> GetWordMeaningObjectsAsync()
+        {
+            await Init();
+            return await Database.Table<WordMeaning>().ToListAsync();
+        }
+
+        #endregion
 
         //public async Task<List<WordMeaning>> GetItemsNotDoneAsync()
         //{
@@ -98,22 +162,58 @@ namespace BlokOfLanguage.DataBase
         //    return await Database.Table<WordMeaning>().Where(i => i.ID == id).FirstOrDefaultAsync();
         //}
 
-        //public async Task<int> SaveItemAsync(WordMeaning item)
-        //{
-        //    await Init();
-        //    if (item.ID != 0)
-        //        return await Database.UpdateAsync(item);
-        //    else
-        //        return await Database.InsertAsync(item);
-        //}
+        #region Save object
+        // todo uniezależnić od id i podzielić na 2 różne metody
+        public async Task<int> SaveObjectAsync(BaseLanguageWord item)
+        {
+            await Init();
+            if (item.ID != 0)
+                return await Database.UpdateAsync(item);
+            else
+                return await Database.InsertAsync(item);
+        }
 
-        //public async Task<int> DeleteItemAsync(WordMeaning item)
-        //{
-        //    await Init();
-        //    return await Database.DeleteAsync(item);
-        //}
+        public async Task<int> SaveObjectAsync(TranslatedWord item)
+        {
+            await Init();
+            if (item.ID != 0)
+                return await Database.UpdateAsync(item);
+            else
+                return await Database.InsertAsync(item);
+        }
 
-        //#endregion
+        public async Task<int> SaveObjectAsync(WordMeaning item)
+        {
+            await Init();
+            if (item.ID != 0)
+                return await Database.UpdateAsync(item);
+            else
+                return await Database.InsertAsync(item);
+        }
+
+        #endregion
+
+        #region Delete object
+
+        public async Task<int> DeleteObjectAsync(BaseLanguageWord item)
+        {
+            await Init();
+            return await Database.DeleteAsync(item);
+        }
+
+        public async Task<int> DeleteObjectAsync(TranslatedWord item)
+        {
+            await Init();
+            return await Database.DeleteAsync(item);
+        }
+
+        public async Task<int> DeleteObjectAsync(WordMeaning item)
+        {
+            await Init();
+            return await Database.DeleteAsync(item);
+        }
+
+        #endregion
 
     }
 }

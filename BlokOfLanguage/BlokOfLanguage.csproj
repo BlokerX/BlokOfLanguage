@@ -58,12 +58,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\WordExplanationPage.xaml">
+	  <MauiXaml Update="Pages\Views\WordCreationForm.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\WordsListPage.xaml">
+	  <MauiXaml Update="Pages\Views\WordExplanationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Views\WordsListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Pages\Models\" />
 	</ItemGroup>
 
 </Project>

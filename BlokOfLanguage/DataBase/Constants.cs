@@ -1,4 +1,4 @@
-﻿namespace BlokOfLanguage
+﻿namespace BlokOfLanguage.DataBase
 {
     public static class Constants
     {
@@ -15,6 +15,17 @@
         public static string DatabasePath =>
             Path.Combine(FileSystem.AppDataDirectory, DatabaseFilename);
 
-        public static DataBase.BlokOfLanguageDatabase DB;
+        private static BlokOfLanguageDatabase _db;
+
+        public static BlokOfLanguageDatabase DB
+        {
+            get { return _db; }
+        }
+
+        public static void LoadDataBase()
+        {
+            _db = new BlokOfLanguageDatabase();
+        }
+
     }
 }

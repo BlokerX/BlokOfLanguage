@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:BlokOfLanguage.Pages.ViewModels"
+             x:Class="BlokOfLanguage.Pages.Views.WordExplanationPage"
+             BindingContext="vm:WordExplanationViewModel"
+             Title="WordExplanationPage">
+    
+    <VerticalStackLayout Padding="30,20">
+        
+        <Label Text="{Binding ID}"/>
+
+        <Label Text="{Binding TranslateWordLine}" 
+               FontSize="Title" 
+               Padding="0,0,0,20"/>
+
+        <Label Text="{Binding BaseLanguageWordLine}" 
+               FontSize="Subtitle"/>
+
+        <Label Text="{Binding Description}"
+               Padding="0,0,0,20"/>
+        
+        <Label Text="It is example sentence with use word.(To jest przykładowe zdanie...)" />
+
+        <Label Text="It is example sentence with use word.(To jest przykładowe zdanie...)" 
+               Padding="0,0,0,20"/>
+
+        <Label Text="Synonimy: _____, ______, ______" />
+        
+        <Label Text="Antonimy: _____, ______, ____" />
+        
+        <Label Text="Powiązane wyrazy: _______, ______, _______, ______" />
+        
+        <Label Text="" />
+
+        <Label Text="{Binding LastUpdate}" />
+
+    </VerticalStackLayout>
+</ContentPage>

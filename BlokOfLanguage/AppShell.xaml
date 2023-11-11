@@ -4,19 +4,19 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:BlokOfLanguage"
-    xmlns:pages="clr-namespace:BlokOfLanguage.Pages">
+    xmlns:v="clr-namespace:BlokOfLanguage.Pages.Views">
     <TabBar>
         <Tab Title="Home"
              Icon="cat.png">
-            <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
+            <ShellContent ContentTemplate="{DataTemplate v:MainPage}"/>
         </Tab>
         <Tab Title="WL"
              Icon="cat.png">
-            <ShellContent ContentTemplate="{DataTemplate local:WordsListPage}"/>
+            <ShellContent ContentTemplate="{DataTemplate v:WordsListPage}"/>
         </Tab>
-        <Tab Title="WEP"
+        <Tab Title="ADD"
              Icon="cat.png">
-            <ShellContent ContentTemplate="{DataTemplate pages:WordExplanationPage}"/>
+            <ShellContent ContentTemplate="{DataTemplate v:WordCreationForm}"/>
         </Tab>
     </TabBar>
 </Shell>

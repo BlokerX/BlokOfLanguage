@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace BlokOfLanguage.DataBase
+namespace BlokOfLanguage.DataBase.EntityObjects
 {
     public class WordMeaning
     {
@@ -27,8 +27,6 @@ namespace BlokOfLanguage.DataBase
         #endregion
 
         public string PartOfSpeech { get; set; }
-
-        public string TranslatedWord { get; set; }
 
         public string Description { get; set; }
 

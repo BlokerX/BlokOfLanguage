@@ -1,4 +1,4 @@
-﻿namespace BlokOfLanguage;
+﻿namespace BlokOfLanguage.Pages.Views;
 
 public partial class MainPage : ContentPage
 {

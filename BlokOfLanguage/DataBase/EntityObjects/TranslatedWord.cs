@@ -1,6 +1,6 @@
 ﻿using SQLite;
 
-namespace BlokOfLanguage.DataBase
+namespace BlokOfLanguage.DataBase.EntityObjects
 {
     public class TranslatedWord
     {
