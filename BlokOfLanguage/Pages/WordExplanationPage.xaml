@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BlokOfLanguage.Pages.WordExplanationPage"
+             Title="WordExplanationPage">
+    <VerticalStackLayout Padding="30,20">
+        
+        <Label Text="[ID] Poziom: A1"/>
+
+        <Label Text="Word [noun/rzeczownik] &lt;3 !!" FontSize="Title" />
+        
+        <Label Text="" />
+        
+        <Label Text="1.Znaczenie1" FontSize="Subtitle"/>
+
+        <Label Text='Wyjaśnienie:^ Słowo "WORD" to opis co to jest' />
+
+        <Label Text="It is example sentence with use word.(To jest przykładowe zdanie...)" />
+        
+        <Label Text="It is example sentence with use word.(To jest przykładowe zdanie...)" />
+        
+        <Label Text="" />
+        
+        <Label Text="Synonimy: _____, ______, ______" />
+        
+        <Label Text="Antonimy: _____, ______, ____" />
+        
+        <Label Text="Powiązane wyrazy: _______, ______, _______, ______" />
+        
+        <Label Text="" />
+
+        <Label Text="Data dodania: 01:10:15 11-11-2023" />
+
+    </VerticalStackLayout>
+</ContentPage>

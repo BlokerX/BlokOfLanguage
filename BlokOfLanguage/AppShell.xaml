@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell
+    x:Class="BlokOfLanguage.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:BlokOfLanguage"
+    xmlns:pages="clr-namespace:BlokOfLanguage.Pages">
+    <TabBar>
+        <Tab Title="Home"
+             Icon="cat.png">
+            <ShellContent ContentTemplate="{DataTemplate local:MainPage}"/>
+        </Tab>
+        <Tab Title="WL"
+             Icon="cat.png">
+            <ShellContent ContentTemplate="{DataTemplate local:WordsListPage}"/>
+        </Tab>
+        <Tab Title="WEP"
+             Icon="cat.png">
+            <ShellContent ContentTemplate="{DataTemplate pages:WordExplanationPage}"/>
+        </Tab>
+    </TabBar>
+</Shell>
