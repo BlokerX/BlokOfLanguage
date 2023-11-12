@@ -2,8 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:BlokOfLanguage.Pages.ViewModels"
-             x:Class="BlokOfLanguage.Pages.Views.WordsListPage"
-             Title="WordsListPage">
+             x:Class="BlokOfLanguage.Pages.Views.WordsListPage">
+    <!--<ContentPage.BindingContext>
+        <vm:_ViewModel/>
+    </ContentPage.BindingContext>-->
     <ScrollView>
         <ListView x:Name="ListOfItems" 
                   ItemSelected="ListOfItems_ItemSelected" 

@@ -16,3 +16,31 @@ from WordMeaning as M INNER JOIN BaseLanguageWord as B ON
 M.BaseLanguageWord_ID=B.ID 
 INNER JOIN TranslatedWord as T ON
 M.TranslatedWord_ID=T.ID;
+
+
+INSERT INTO baselanguageword (Word) VALUES ("czerwony");
+INSERT INTO baselanguageword (Word) VALUES ("zielony");
+INSERT INTO baselanguageword (Word) VALUES ("niebieski");
+INSERT INTO baselanguageword (Word) VALUES ("żółty");
+INSERT INTO baselanguageword (Word) VALUES ("pomarańczowy");
+INSERT INTO baselanguageword (Word) VALUES ("fioletowy");
+INSERT INTO baselanguageword (Word) VALUES ("biały");
+INSERT INTO baselanguageword (Word) VALUES ("czarny");
+
+INSERT INTO translatedword (ID, Word, IsDifficultWord, IsFavourite, DifficultLevel) VALUES (1, "red", 0, 0, NULL);
+INSERT INTO translatedword (ID, Word, IsDifficultWord, IsFavourite, DifficultLevel) VALUES (2, "green", 0, 0, NULL);
+INSERT INTO translatedword (ID, Word, IsDifficultWord, IsFavourite, DifficultLevel) VALUES (3, "blue", 0, 0, NULL);
+INSERT INTO translatedword (ID, Word, IsDifficultWord, IsFavourite, DifficultLevel) VALUES (4, "yellow", 0, 0, NULL);
+INSERT INTO translatedword (ID, Word, IsDifficultWord, IsFavourite, DifficultLevel) VALUES (5, "orange", 0, 0, NULL);
+INSERT INTO translatedword (ID, Word, IsDifficultWord, IsFavourite, DifficultLevel) VALUES (6, "purple", 0, 0, NULL);
+INSERT INTO translatedword (ID, Word, IsDifficultWord, IsFavourite, DifficultLevel) VALUES (7, "white", 0, 0, NULL);
+INSERT INTO translatedword (ID, Word, IsDifficultWord, IsFavourite, DifficultLevel) VALUES (8, "black", 0, 0, NULL);
+
+INSERT INTO wordmeaning (ID, BaseLanguageWord_ID, TranslatedWord_ID, PartOfSpeech, Description, LastUpdateTime) VALUES (1, 1, 1, "noun/rzeczownik, adjective/przymiotnik", NULL, NULL);
+INSERT INTO wordmeaning (ID, BaseLanguageWord_ID, TranslatedWord_ID, PartOfSpeech, Description, LastUpdateTime) VALUES (2, 2, 2, "noun/rzeczownik, adjective/przymiotnik", NULL, NULL);
+INSERT INTO wordmeaning (ID, BaseLanguageWord_ID, TranslatedWord_ID, PartOfSpeech, Description, LastUpdateTime) VALUES (3, 3, 3, "noun/rzeczownik, adjective/przymiotnik", NULL, NULL);
+INSERT INTO wordmeaning (ID, BaseLanguageWord_ID, TranslatedWord_ID, PartOfSpeech, Description, LastUpdateTime) VALUES (4, 4, 4, "noun/rzeczownik, adjective/przymiotnik", NULL, NULL);
+INSERT INTO wordmeaning (ID, BaseLanguageWord_ID, TranslatedWord_ID, PartOfSpeech, Description, LastUpdateTime) VALUES (5, 5, 5, "noun/rzeczownik, adjective/przymiotnik", NULL, NULL);
+INSERT INTO wordmeaning (ID, BaseLanguageWord_ID, TranslatedWord_ID, PartOfSpeech, Description, LastUpdateTime) VALUES (6, 6, 6, "noun/rzeczownik, adjective/przymiotnik", NULL, NULL);
+INSERT INTO wordmeaning (ID, BaseLanguageWord_ID, TranslatedWord_ID, PartOfSpeech, Description, LastUpdateTime) VALUES (7, 7, 7, "noun/rzeczownik, adjective/przymiotnik", NULL, NULL);
+INSERT INTO wordmeaning (ID, BaseLanguageWord_ID, TranslatedWord_ID, PartOfSpeech, Description, LastUpdateTime) VALUES (8, 8, 8, "noun/rzeczownik, adjective/przymiotnik", NULL, NULL);

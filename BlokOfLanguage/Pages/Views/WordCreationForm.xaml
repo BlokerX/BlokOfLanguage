@@ -2,38 +2,71 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BlokOfLanguage.Pages.Views.WordCreationForm"
-             Title="WordCreationForm">
+             xmlns:vm="clr-namespace:BlokOfLanguage.Pages.ViewModels"
+             Title="Add new word">
+    
+    <ContentPage.BindingContext>
+        <vm:WordCreationViewModel/>
+    </ContentPage.BindingContext>
+    
     <VerticalStackLayout>
-        
-        <Label 
-            Text="Translate word: "
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry Text="{Binding TranslateWord}"/>
-        
-        <Label 
-            Text="Base language word: "
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry Text="{Binding BaseLanguageWord}"/>
-        
-        <Label 
-            Text="Part of speech: "
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <SelectableItemsView SelectedItem="{Binding PartOfSpeech, Mode=TwoWay}"/>
-        
-        <Label 
-            Text="Difficult level: "
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry Text="{Binding DifficultLevel}"/>
-        
-        <Label 
-            Text="Translate word: "
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry Text="{Binding TranslateWord}"/>
+
+        <Label Text="Translate word: "/>
+        <Entry Text="{Binding TranslatedWord, Mode=TwoWay}"/>
+
+        <Label Text="Base language word: "/>
+        <Entry Text="{Binding BaseLanguageWord, Mode=TwoWay}"/>
+
+        <Line></Line>
+
+        <Label Text="Part of speech: "/>
+        <Picker Title="Select part of speech"
+                SelectedItem="{Binding PartOfSpeech, Mode=TwoWay}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>expression/wyrażenie</x:String>
+                    <x:String>noun/rzeczownik</x:String>
+                    <x:String>verb/czasownik</x:String>
+                    <x:String>adjective/przymiotnik</x:String>
+                    <x:String>adverb/przysłówek</x:String>
+                    <x:String>pronoun/zaimek</x:String>
+                    <x:String>article/przedimek</x:String>
+                    <x:String>preposition/przyimek</x:String>
+                    <x:String>conjunction/spójnik</x:String>
+                    <x:String>numeral/liczebnik</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <Label Text="Difficult level: "/>
+        <Picker Title="Select part of speech"
+                SelectedItem="{Binding DifficultLevel, Mode=TwoWay}">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Unknown</x:String>
+                    <x:String>A1</x:String>
+                    <x:String>A2</x:String>
+                    <x:String>B1</x:String>
+                    <x:String>B2</x:String>
+                    <x:String>C1</x:String>
+                    <x:String>C2</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <Label Text="Description: "/>
+        <Editor Text="{Binding Description, Mode=TwoWay}"
+                AutoSize="TextChanges"/>
+
+        <HorizontalStackLayout>
+            <Label Text="Is favourite: "/>
+            <CheckBox IsChecked="{Binding IsFavourite, Mode=TwoWay}"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout>
+            <Label Text="Is difficult word: " />
+            <CheckBox IsChecked="{Binding IsDifficultWord, Mode=TwoWay}"/>
+        </HorizontalStackLayout>
 
         <Button Text="ADD WORD"
                 Clicked="AddButton_Clicked"/>

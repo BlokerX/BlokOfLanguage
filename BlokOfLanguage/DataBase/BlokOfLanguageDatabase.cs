@@ -20,6 +20,8 @@ namespace BlokOfLanguage.DataBase
 
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
 
+            await Database.ExecuteAsync("PRAGMA encoding=\"UTF-8\";");
+
             var result1 = await Database.CreateTableAsync<WordMeaning>();
             var result2 = await Database.CreateTableAsync<TranslatedWord>();
             var result3 = await Database.CreateTableAsync<BaseLanguageWord>();
