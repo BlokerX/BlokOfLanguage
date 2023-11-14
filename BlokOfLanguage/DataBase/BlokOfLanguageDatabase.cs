@@ -37,7 +37,7 @@ namespace BlokOfLanguage.DataBase
             foreach (var item in result)
             {
                 Debug.WriteLine("[OBJECT]" +
-                    " T_ID: " + item.TranslateWord_ID +
+                    " T_ID: " + item.TranslatedWord_ID +
                     " B_ID: " + item.BaseLanguageWord_ID +
                     " M_ID: " + item.WordMeaning_ID +
                     " Word: " + item.TranslatedWord +
@@ -63,7 +63,7 @@ namespace BlokOfLanguage.DataBase
                 " T.Word         as      \"TranslatedWord\"      , " +
                 " B.Word         as      \"BaseLanguageWord\"    , " +
                 " B.ID           as      \"BaseLanguageWord_ID\" , " +
-                " T.ID           as      \"TranslateWord_ID\"    , " +
+                " T.ID           as      \"TranslatedWord_ID\"    , " +
                 " M.ID           as      \"WordMeaning_ID\"      , " +
                 " M.PartOfSpeech                                 , " +
                 " M.LastUpdateTime                               , " +
@@ -110,19 +110,28 @@ namespace BlokOfLanguage.DataBase
         public async Task<int> GetBaseLanguageWordNewIDAsync()
         {
             await Init();
-            return Database.QueryAsync<BaseLanguageWord>("SELECT id FROM BaseLanguageWord ORDER BY id DESC LIMIT 1;").Result.First().ID + 1;
+            var result = Database.QueryAsync<BaseLanguageWord>("SELECT id FROM BaseLanguageWord ORDER BY id DESC LIMIT 1;").Result;
+            if (result.Count > 0)
+                return result.FirstOrDefault().ID + 1;
+            return 1;
         }
 
         public async Task<int> GetTranslatedWordNewIDAsync()
         {
             await Init();
-            return Database.QueryAsync<TranslatedWord>("SELECT id FROM TranslatedWord ORDER BY id DESC LIMIT 1;").Result.First().ID + 1;
+            var result = Database.QueryAsync<TranslatedWord>("SELECT id FROM TranslatedWord ORDER BY id DESC LIMIT 1;").Result;
+            if (result.Count > 0)
+                return result.FirstOrDefault().ID + 1;
+            return 1;
         }
 
         public async Task<int> GetWordMeaningNewIDAsync()
         {
             await Init();
-            return Database.QueryAsync<WordMeaning>("SELECT id FROM WordMeaning ORDER BY id DESC LIMIT 1;").Result.First().ID + 1;
+            var result = Database.QueryAsync<WordMeaning>("SELECT id FROM WordMeaning ORDER BY id DESC LIMIT 1;").Result;
+            if (result.Count > 0)
+                return result.FirstOrDefault().ID + 1;
+            return 1;
         }
 
         #endregion
@@ -158,13 +167,29 @@ namespace BlokOfLanguage.DataBase
         //    //return await Database.QueryAsync<WordMeaning>("SELECT * FROM [WordMeaning] WHERE [Done] = 0");
         //}
 
-        //public async Task<WordMeaning> GetItemAsync(int id)
-        //{
-        //    await Init();
-        //    return await Database.Table<WordMeaning>().Where(i => i.ID == id).FirstOrDefaultAsync();
-        //}
+        #region Get item by unique id
 
-        #region Save object
+        public async Task<BaseLanguageWord> GetBaseLanguageWordAsync(int id)
+        {
+            await Init();
+            return await Database.Table<BaseLanguageWord>().Where(i => i.ID == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<TranslatedWord> GetTranslatedWordAsync(int id)
+        {
+            await Init();
+            return await Database.Table<TranslatedWord>().Where(i => i.ID == id).FirstOrDefaultAsync();
+        }
+
+        public async Task<WordMeaning> GetWordMeaningAsync(int id)
+        {
+            await Init();
+            return await Database.Table<WordMeaning>().Where(i => i.ID == id).FirstOrDefaultAsync();
+        }
+
+        #endregion
+
+        #region Save object (Update or Insert if it doesn't exist)
         // todo uniezależnić od id i podzielić na 2 różne metody
         public async Task<int> SaveObjectAsync(BaseLanguageWord item)
         {
@@ -191,6 +216,28 @@ namespace BlokOfLanguage.DataBase
                 return await Database.UpdateAsync(item);
             else
                 return await Database.InsertAsync(item);
+        }
+
+        #endregion
+
+        #region InsertObject
+
+        public async Task<int> InsertObjectAsync(BaseLanguageWord item)
+        {
+            await Init();
+            return await Database.InsertAsync(item);
+        }
+
+        public async Task<int> InsertObjectAsync(TranslatedWord item)
+        {
+            await Init();
+            return await Database.InsertAsync(item);
+        }
+
+        public async Task<int> InsertObjectAsync(WordMeaning item)
+        {
+            await Init();
+            return await Database.InsertAsync(item);
         }
 
         #endregion

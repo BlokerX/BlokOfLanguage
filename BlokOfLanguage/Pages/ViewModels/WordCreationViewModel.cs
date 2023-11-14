@@ -83,34 +83,77 @@ namespace BlokOfLanguage.Pages.ViewModels
             }
         }
 
-        public void AddButtonClicked(out WordObject wordObject)
+        public async Task<bool> AddButtonClickedAsync()
         {
+            // todo uniemożliwić jeśli nazwy puste
+            if (TranslatedWord == string.Empty || BaseLanguageWord == string.Empty)
+                return false;
+
+#if DEBUG
             Debug.WriteLine(
-                $"[ADD] {TranslatedWord} " +
-                $"{BaseLanguageWord} " +
-                $"{PartOfSpeech} " +
-                $"{DifficultLevel} " +
-                $"{Description} " +
-                $"{IsFavourite} " +
-                $"{IsDifficultWord}");
+            $"[ADD] {TranslatedWord} " +
+            $"{BaseLanguageWord} " +
+            $"{PartOfSpeech} " +
+            $"{DifficultLevel} " +
+            $"{Description} " +
+            $"{IsFavourite} " +
+            $"{IsDifficultWord}");
+#endif
 
-            wordObject = new WordObject()
-            {
-                TranslatedWord = TranslatedWord,
-                BaseLanguageWord = BaseLanguageWord,
-                Description = Description,
-                DifficultLevel = DifficultLevel,
-                IsDifficultWord = IsDifficultWord,
-                IsFavourite = IsFavourite,
-                LastUpdateTime = DateTime.Now,
-                PartOfSpeech = PartOfSpeech,
-            };
+            await AddToDataBaseAsync();
 
-            // todo dodać dodawanie do bazy danych jeśli
-            // rekordy w jednej tableli już są
-            // to dopisać tylko te których nie ma 
-
+            // koniecznie na końcu
             ResetForm();
+            return true;
+        }
+
+        private async Task AddToDataBaseAsync()
+        { // todo naprawić funkcję
+            // Base Language Word //
+            var q1 = $"SELECT * FROM BaseLanguageWord WHERE Word like '{BaseLanguageWord}';";
+
+            var baseLanguageWords = Constants.DB.SelectQueryAboutBaseLanguageWordObjectsAsync(q1).Result;
+
+            int baseLanguageWord_ID = 0;
+
+            if (baseLanguageWords.Count > 0)
+                baseLanguageWord_ID = baseLanguageWords.First().ID;
+            else
+            {
+                BaseLanguageWord b;
+                await Constants.DB.InsertObjectAsync(b = CreateBaseLanguageWordObject());
+                baseLanguageWord_ID = b.ID;
+            }
+
+            // Translated Word //
+            var q2 = $"SELECT * FROM TranslatedWord WHERE Word like '{TranslatedWord}';";
+
+            var translatedWords = Constants.DB.SelectQueryAboutTranslatedWordObjectsAsync(q2).Result;
+
+            int translateWord_ID = 0;
+
+            if (translatedWords.Count > 0)
+                translateWord_ID = translatedWords.First().ID;
+            else
+            {
+                TranslatedWord t;
+                await Constants.DB.InsertObjectAsync(t = CreateTranslatedWordObject());
+                translateWord_ID = t.ID;
+            }
+
+            // Word Meaning - Relation //
+
+            var q3 = $"SELECT * FROM WordMeaning WHERE " +
+                     $"BaseLanguageWord_ID={baseLanguageWord_ID} AND " +
+                     $"TranslatedWord_ID={translateWord_ID}";
+            if (PartOfSpeech != null) q3 += $" AND PartOfSpeech like '{PartOfSpeech}'";
+            q3 += ";";
+            var wordMeanings = Constants.DB.SelectQueryAboutWordMeaningObjectsAsync(q3).Result;
+
+            if (wordMeanings.Count == 0)
+                await Constants.DB.InsertObjectAsync(CreateWordMeaningObject(baseLanguageWord_ID, translateWord_ID));
+
+            Debug.WriteLine("[Database Insert] Successfull!");
         }
 
         private void ResetForm()

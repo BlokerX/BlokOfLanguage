@@ -22,20 +22,22 @@
         <Label Text="{Binding Description}"
                Padding="0,0,0,20"/>
         
-        <Label Text="It is example sentence with use word.(To jest przykładowe zdanie...)" />
+        <!--<Label Text="It is example sentence with use word.(To jest przykładowe zdanie...)" />
 
-        <Label Text="It is example sentence with use word.(To jest przykładowe zdanie...)" 
-               Padding="0,0,0,20"/>
+        <=Label Text="It is example sentence with use word.(To jest przykładowe zdanie...)" 
+               Padding="0,0,0,20"/>-->
 
-        <Label Text="Synonimy: _____, ______, ______" />
+        <!--<Label Text="Synonimy: _____, ______, ______" />
         
         <Label Text="Antonimy: _____, ______, ____" />
         
-        <Label Text="Powiązane wyrazy: _______, ______, _______, ______" />
-        
-        <Label Text="" />
+        <Label Text="Powiązane wyrazy: _______, ______, _______, ______" />-->
 
         <Label Text="{Binding LastUpdate}" />
+
+        <Button Text="Delete"
+                Clicked="DeleteButton_Clicked"
+                HorizontalOptions="End"/>
 
     </VerticalStackLayout>
 </ContentPage>

@@ -9,9 +9,21 @@ public partial class WordsListPage : ContentPage
     public WordsListPage()
     {
         InitializeComponent();
+    }
 
+    private void WordsListPage_Loaded(object sender, EventArgs e)
+    {
+        RefreshList();
+    }
+
+    private void RefreshButton_Clicked(object sender, EventArgs e)
+    {
+        RefreshList();
+    }
+
+    public void RefreshList()
+    {
         Words = Constants.DB.GetWordObjectsAsync().Result;
-
         ListOfItems.ItemsSource = Words; // dodać architekturę mvvm
     }
 

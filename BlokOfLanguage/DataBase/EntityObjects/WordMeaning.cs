@@ -39,8 +39,5 @@ namespace BlokOfLanguage.DataBase.EntityObjects
         //public List<string> RelatedWords { get; set; }
 
         public DateTime LastUpdateTime { get; set; }
-
-        // todo zmienić //
-        public bool Done { get; internal set; }
     }
 }

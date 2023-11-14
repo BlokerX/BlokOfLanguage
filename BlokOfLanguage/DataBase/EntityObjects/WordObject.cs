@@ -28,7 +28,7 @@ namespace BlokOfLanguage.DataBase.EntityObjects
         /// Foreign key.
         /// </summary>
         [Indexed]
-        public int TranslateWord_ID { get; set; }
+        public int TranslatedWord_ID { get; set; }
 
         public string TranslatedWord { get; set; }
 

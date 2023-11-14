@@ -2,20 +2,25 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:BlokOfLanguage.Pages.ViewModels"
-             x:Class="BlokOfLanguage.Pages.Views.WordsListPage">
+             x:Class="BlokOfLanguage.Pages.Views.WordsListPage"
+             Loaded="WordsListPage_Loaded">
     <!--<ContentPage.BindingContext>
         <vm:_ViewModel/>
     </ContentPage.BindingContext>-->
     <ScrollView>
-        <ListView x:Name="ListOfItems" 
-                  ItemSelected="ListOfItems_ItemSelected" 
-                  ItemTapped="ListOfItems_ItemTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate >
-                    <TextCell Text="{Binding TranslatedWord}"
-                              Detail="{Binding BaseLanguageWord}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackLayout>
+            <ListView x:Name="ListOfItems" 
+                      ItemSelected="ListOfItems_ItemSelected" 
+                      ItemTapped="ListOfItems_ItemTapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding TranslatedWord}"
+                                  Detail="{Binding BaseLanguageWord}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Refresh" 
+                    Clicked="RefreshButton_Clicked"/>
+        </StackLayout>
     </ScrollView>
 </ContentPage>
