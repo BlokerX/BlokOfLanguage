@@ -8,7 +8,24 @@
         <vm:_ViewModel/>
     </ContentPage.BindingContext>-->
     <ScrollView>
-        <StackLayout>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,20">
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+                <Entry Placeholder="Search word"
+                       FontSize="Medium"
+                       Grid.Column="0"/>
+                <Button Text="OK"
+                        Grid.Column="1"/>
+            </Grid>
+
+            <Label Text="Wyniki wyszukiwania 'quad':"/>
+
             <ListView x:Name="ListOfItems" 
                       ItemSelected="ListOfItems_ItemSelected" 
                       ItemTapped="ListOfItems_ItemTapped">
@@ -19,8 +36,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            
             <Button Text="Refresh" 
                     Clicked="RefreshButton_Clicked"/>
-        </StackLayout>
+            
+        </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
