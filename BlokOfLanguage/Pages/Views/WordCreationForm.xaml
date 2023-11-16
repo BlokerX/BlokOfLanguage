@@ -83,7 +83,8 @@
                     Clicked="AddButton_Clicked"/>
             
             <Button Text="Reset" 
-                    Style="{StaticResource Button2}"/>
+                    Style="{StaticResource Button2}"
+                    Clicked="ResetButton_Clicked"/>
 
         </VerticalStackLayout>
     </ScrollView>

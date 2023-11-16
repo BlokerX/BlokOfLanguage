@@ -19,6 +19,13 @@
         <Setter Property="StrokeThickness" Value="1"/>
     </Style>
 
+    <Style TargetType="Border" x:Key="Panel1">
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource SecondaryBrush}, Dark={StaticResource Gray100}}" />
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource PrimaryBrush}, Dark={StaticResource Gray500}}" />
+        <Setter Property="StrokeShape" Value="RoundRectangle 10"/>
+        <Setter Property="StrokeThickness" Value="2"/>
+    </Style>
+
     <Style TargetType="BoxView">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
@@ -45,10 +52,14 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Button" x:Key="ResetButton">
+    <Style TargetType="Button" x:Key="Button2">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"/>
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Primary}}" />
         <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"/>
+    </Style>
+
+    <Style TargetType="ContentPage">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Background}, Dark={StaticResource White}}"/>
     </Style>
 
     <Style TargetType="CheckBox">
@@ -87,7 +98,7 @@
     </Style>
 
     <Style TargetType="Editor">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource White}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
@@ -107,7 +118,7 @@
     </Style>
 
     <Style TargetType="Entry">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource White}}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="14" />
@@ -124,6 +135,11 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
+    </Style>
+
+    <Style TargetType="Entry" x:Key="SearchEntry">
+        <Setter Property="PlaceholderColor" Value="{StaticResource TextColor2}"/>
+        <Setter Property="TextColor" Value="{StaticResource TextColor}"/>
     </Style>
 
     <Style TargetType="Frame">
@@ -152,7 +168,7 @@
     </Style>
 
     <Style TargetType="Label">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource TextColor}, Dark={StaticResource White}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="VisualStateManager.VisualStateGroups">

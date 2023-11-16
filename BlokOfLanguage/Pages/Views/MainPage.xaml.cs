@@ -1,4 +1,7 @@
-﻿namespace BlokOfLanguage.Pages.Views;
+﻿using BlokOfLanguage.DataBase;
+using BlokOfLanguage.DataBase.EntityObjects;
+
+namespace BlokOfLanguage.Pages.Views;
 
 public partial class MainPage : ContentPage
 {
@@ -7,7 +10,11 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
+        Words = Constants.DB.GetWordObjectsAsync().Result;
+        LastWordsList.ItemsSource = Words; // dodać architekturę mvvm
     }
+
+    private List<WordObject> Words { get; set; }
 
 }
 

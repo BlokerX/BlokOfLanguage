@@ -107,6 +107,11 @@ namespace BlokOfLanguage.Pages.ViewModels
             return true;
         }
 
+        public void ResetButtonClicked()
+        {
+            ResetForm();
+        }
+
         private async Task AddToDataBaseAsync()
         { // todo naprawić funkcję
             // Base Language Word //

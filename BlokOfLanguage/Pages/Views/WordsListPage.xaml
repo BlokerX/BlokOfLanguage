@@ -7,24 +7,32 @@
     <!--<ContentPage.BindingContext>
         <vm:_ViewModel/>
     </ContentPage.BindingContext>-->
-    <ScrollView>
-        <VerticalStackLayout
+
+    <VerticalStackLayout
             Spacing="25"
             Padding="30,20">
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="60"/>
-                </Grid.ColumnDefinitions>
-                <Entry Placeholder="Search word"
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <Entry Placeholder="Search word"
+                       x:Name="SearchEntry"
                        FontSize="Medium"
-                       Grid.Column="0"/>
-                <Button Text="OK"
-                        Grid.Column="1"/>
-            </Grid>
+                       TextChanged="SearchEntry_TextChanged"
+                       Style="{StaticResource SearchEntry}"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"/>
+            <Button Text="OK"
+                        Clicked="SearchButton_Clicked"
+                        Grid.Column="1"
+                        CornerRadius="4"/>
+        </Grid>
 
-            <Label Text="Wyniki wyszukiwania 'quad':"/>
+        <Label Text="Wyniki wyszukiwania 'quad':"/>
+
+        <ScrollView>
 
             <ListView x:Name="ListOfItems" 
                       ItemSelected="ListOfItems_ItemSelected" 
@@ -36,10 +44,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            
-            <Button Text="Refresh" 
+        </ScrollView>
+
+        <Button Text="Refresh" 
                     Clicked="RefreshButton_Clicked"/>
-            
-        </VerticalStackLayout>
-    </ScrollView>
+
+    </VerticalStackLayout>
 </ContentPage>

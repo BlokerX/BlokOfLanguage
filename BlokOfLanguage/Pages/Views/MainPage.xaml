@@ -21,26 +21,28 @@
                 HorizontalOptions="Center" />
 
             <Border 
-                StrokeShape="RoundRectangle 10"
-                StrokeThickness="2"
-                Stroke="Black"
-                BackgroundColor="Silver"
-                >
+                Style="{StaticResource Panel1}">
                 <VerticalStackLayout
-                    HeightRequest="350"
+                    MaximumHeightRequest="350"
                     Padding="20,15">
 
                     <Label Text="Last words:"
-                           TextColor="Black"
+                           TextColor="#1B1B1E"
                            SemanticProperties.HeadingLevel="Level2"
                            FontSize="18"/>
 
-                    <ListView>
-                        <!-- Ostatnie słówka -->
+                    <ListView x:Name="LastWordsList">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell Text="{Binding TranslatedWord}"
+                                  Detail="{Binding BaseLanguageWord}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
                     </ListView>
 
                 </VerticalStackLayout>
             </Border>
+            
         </VerticalStackLayout>
     </ScrollView>
 

@@ -23,7 +23,11 @@ public partial class WordsListPage : ContentPage
 
     public void RefreshList()
     {
-        Words = Constants.DB.GetWordObjectsAsync().Result;
+        if (SearchEntry.Text != null)
+            Words = Constants.DB.GetWordObjectsByWordAsync(SearchEntry.Text).Result;
+        else
+            Words = Constants.DB.GetWordObjectsAsync().Result;
+
         ListOfItems.ItemsSource = Words; // dodać architekturę mvvm
     }
 
@@ -38,5 +42,15 @@ public partial class WordsListPage : ContentPage
     {
         var w = (WordObject)e.Item;
         Navigation.PushAsync(new WordExplanationPage() { BindingContext = new WordExplanationViewModel(w) });
+    }
+
+    private void SearchButton_Clicked(object sender, EventArgs e)
+    {
+        RefreshList();
+    }
+
+    private void SearchEntry_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        RefreshList();
     }
 }

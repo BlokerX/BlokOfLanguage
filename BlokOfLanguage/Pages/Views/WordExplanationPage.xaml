@@ -42,7 +42,6 @@
             <HorizontalStackLayout HorizontalOptions="End">
                 <Button Text="Modify"
                         Style="{StaticResource Button2}"
-                        Clicked="DeleteButton_Clicked"
                         HorizontalOptions="End"/>
                 <Button Text="Delete"
                         Clicked="DeleteButton_Clicked"
