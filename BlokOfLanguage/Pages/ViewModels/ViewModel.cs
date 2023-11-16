@@ -10,29 +10,29 @@ namespace BlokOfLanguage.Pages.ViewModels
 {
     public class ViewModel : INotifyPropertyChanged
     {
-        bool isVisible = true;
-        public bool IsVisible
-        {
-            get => isVisible;
-            set
-            {
-                isVisible = value;
-                OnPropertyChanged(nameof(IsVisible));
-            }
-        }
+        //bool isVisible = true;
+        //public bool IsVisible
+        //{
+        //    get => isVisible;
+        //    set
+        //    {
+        //        isVisible = value;
+        //        OnPropertyChanged(nameof(IsVisible));
+        //    }
+        //}
 
-        public ICommand TapCommand { get; set; }
+        //public ICommand TapCommand { get; set; }
 
         public ViewModel()
         {
-            isVisible = true;
-            TapCommand = new Command(Show);
+            //isVisible = true;
+            //TapCommand = new Command(Show);
         }
 
-        private void Show()
-        {
-            IsVisible = !IsVisible;
-        }
+        //private void Show()
+        //{
+        //    IsVisible = !IsVisible;
+        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)

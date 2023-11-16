@@ -1,5 +1,4 @@
-﻿using BlokOfLanguage.DataBase;
-using BlokOfLanguage.DataBase.EntityObjects;
+﻿using BlokOfLanguage.DataBase.EntityObjects;
 using BlokOfLanguage.Pages.ViewModels;
 
 namespace BlokOfLanguage.Pages.Views;
@@ -13,25 +12,8 @@ public partial class WordsListPage : ContentPage
 
     private void WordsListPage_Loaded(object sender, EventArgs e)
     {
-        RefreshList();
+        ((WordListViewModel)BindingContext)?.RefreshList();
     }
-
-    private void RefreshButton_Clicked(object sender, EventArgs e)
-    {
-        RefreshList();
-    }
-
-    public void RefreshList()
-    {
-        if (SearchEntry.Text != null)
-            Words = Constants.DB.GetWordObjectsByWordAsync(SearchEntry.Text).Result;
-        else
-            Words = Constants.DB.GetWordObjectsAsync().Result;
-
-        ListOfItems.ItemsSource = Words; // dodać architekturę mvvm
-    }
-
-    private List<WordObject> Words { get; set; }
 
     private void ListOfItems_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
@@ -46,11 +28,11 @@ public partial class WordsListPage : ContentPage
 
     private void SearchButton_Clicked(object sender, EventArgs e)
     {
-        RefreshList();
+        ((WordListViewModel)BindingContext)?.RefreshList();
     }
 
     private void SearchEntry_TextChanged(object sender, TextChangedEventArgs e)
     {
-        RefreshList();
+        ((WordListViewModel)BindingContext)?.RefreshList();
     }
 }

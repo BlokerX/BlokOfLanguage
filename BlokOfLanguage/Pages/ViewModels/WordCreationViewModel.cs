@@ -119,8 +119,7 @@ namespace BlokOfLanguage.Pages.ViewModels
 
             var baseLanguageWords = Constants.DB.SelectQueryAboutBaseLanguageWordObjectsAsync(q1).Result;
 
-            int baseLanguageWord_ID = 0;
-
+            int baseLanguageWord_ID;
             if (baseLanguageWords.Count > 0)
                 baseLanguageWord_ID = baseLanguageWords.First().ID;
             else
@@ -135,8 +134,7 @@ namespace BlokOfLanguage.Pages.ViewModels
 
             var translatedWords = Constants.DB.SelectQueryAboutTranslatedWordObjectsAsync(q2).Result;
 
-            int translateWord_ID = 0;
-
+            int translateWord_ID;
             if (translatedWords.Count > 0)
                 translateWord_ID = translatedWords.First().ID;
             else

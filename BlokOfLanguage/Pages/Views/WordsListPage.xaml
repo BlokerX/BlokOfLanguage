@@ -4,38 +4,32 @@
              xmlns:vm="clr-namespace:BlokOfLanguage.Pages.ViewModels"
              x:Class="BlokOfLanguage.Pages.Views.WordsListPage"
              Loaded="WordsListPage_Loaded">
-    <!--<ContentPage.BindingContext>
-        <vm:_ViewModel/>
-    </ContentPage.BindingContext>-->
+    <ContentPage.BindingContext>
+        <vm:WordListViewModel/>
+    </ContentPage.BindingContext>
 
     <VerticalStackLayout
             Spacing="25"
             Padding="30,20">
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="60"/>
-            </Grid.ColumnDefinitions>
-            <Entry Placeholder="Search word"
-                       x:Name="SearchEntry"
-                       FontSize="Medium"
-                       TextChanged="SearchEntry_TextChanged"
-                       Style="{StaticResource SearchEntry}"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="2"/>
-            <Button Text="OK"
-                        Clicked="SearchButton_Clicked"
-                        Grid.Column="1"
-                        CornerRadius="4"/>
-        </Grid>
+        <SearchBar Placeholder="Search word"
+                   Text="{Binding SearchBarText, Mode=TwoWay}"
+                   TextChanged="SearchEntry_TextChanged"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"/>
 
-        <Label Text="Wyniki wyszukiwania 'quad':"/>
+        <HorizontalStackLayout IsVisible="{Binding IsSearch, Mode=TwoWay}">
+            <Label Text='Wyniki wyszukiwania "'/>
+            <Label Text="{Binding SearchBarText}"
+                   TextColor="{StaticResource TextColor2}"/>
+            <Label Text='":' />
+        </HorizontalStackLayout>
 
         <ScrollView>
 
-            <ListView x:Name="ListOfItems" 
-                      ItemSelected="ListOfItems_ItemSelected" 
+            <ListView x:Name="ListOfItems"
+                      ItemsSource="{Binding Words}"
+                      ItemSelected="ListOfItems_ItemSelected"
                       ItemTapped="ListOfItems_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -47,7 +41,7 @@
         </ScrollView>
 
         <Button Text="Refresh" 
-                    Clicked="RefreshButton_Clicked"/>
+                Command="{Binding RefreshButtonCommand}"/>
 
     </VerticalStackLayout>
 </ContentPage>
