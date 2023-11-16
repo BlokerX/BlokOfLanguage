@@ -1,5 +1,6 @@
 ﻿using BlokOfLanguage.DataBase;
 using BlokOfLanguage.DataBase.EntityObjects;
+using System.Diagnostics;
 
 namespace BlokOfLanguage.Pages.Views;
 
@@ -10,11 +11,18 @@ public partial class MainPage : ContentPage
     public MainPage()
     {
         InitializeComponent();
-        Words = Constants.DB.GetWordObjectsAsync().Result;
-        LastWordsList.ItemsSource = Words; // dodać architekturę mvvm
     }
 
     private List<WordObject> Words { get; set; }
 
+    private async void ContentPage_Loaded(object sender, EventArgs e)
+    {
+        try
+        {
+            Words = await Constants.DB.GetWordObjectsAsync();
+            LastWordsList.ItemsSource = Words; // dodać architekturę mvvm
+        }
+        catch (Exception ex) { Debug.WriteLine("[EXCEPTION]: " + ex); }
+    }
 }
 
