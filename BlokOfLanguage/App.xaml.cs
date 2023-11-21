@@ -6,6 +6,6 @@ public partial class App : Application
 	{
 		DataBase.Constants.LoadDataBase();
 		InitializeComponent();
-        MainPage = new AppShell();
+		MainPage = new AppShell();
 	}
 }
