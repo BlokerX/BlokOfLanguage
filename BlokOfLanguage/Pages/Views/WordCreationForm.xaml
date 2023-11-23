@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BlokOfLanguage.Pages.Views.WordCreationForm"
-             xmlns:vm="clr-namespace:BlokOfLanguage.Pages.ViewModels">
-    
+<ContentPage
+    x:Class="BlokOfLanguage.Pages.Views.WordCreationForm"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:BlokOfLanguage.Pages.ViewModels">
+
     <ContentPage.BindingContext>
-        <vm:WordCreationViewModel/>
+        <vm:WordCreationViewModel />
     </ContentPage.BindingContext>
     <ScrollView>
-        <VerticalStackLayout 
-            Spacing="10"
-            Padding="30,20">
+        <VerticalStackLayout Padding="30,20" Spacing="10">
 
-            <Label Text="Add word"
-                   FontSize="Title"/>
+            <Label FontSize="Title" Text="Add word" />
 
             <VerticalStackLayout Padding="5,0">
 
-                <Label Text="Translate word:"
-                       FontSize="Subtitle"/>
-                <Entry Text="{Binding TranslatedWord, Mode=TwoWay}"
-                       FontSize="Subtitle"/>
+                <Label FontSize="Subtitle" Text="Translate word:" />
+                <Entry FontSize="Subtitle" Text="{Binding TranslatedWord, Mode=TwoWay}" />
 
-                <Label Text="Base language word:"
-                       FontSize="Subtitle"/>
-                <Entry Text="{Binding BaseLanguageWord, Mode=TwoWay}"
-                       FontSize="Subtitle"/>
+                <Label FontSize="Subtitle" Text="Base language word:" />
+                <Entry FontSize="Subtitle" Text="{Binding BaseLanguageWord, Mode=TwoWay}" />
 
-                <Line/>
+                <Line />
 
-                <Picker Title="Part of speech:" FontSize="Subtitle"
-                        SelectedItem="{Binding PartOfSpeech, Mode=TwoWay}">
+                <Label FontSize="Subtitle" Text="Part of speech:" />
+                <Picker
+                    Title="Select part of speech"
+                    FontSize="Subtitle"
+                    SelectedItem="{Binding PartOfSpeech, Mode=TwoWay}">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>expression/wyrażenie</x:String>
@@ -47,8 +44,11 @@
                     </Picker.ItemsSource>
                 </Picker>
 
-                <Picker Title="Difficult level:" FontSize="Subtitle"
-                        SelectedItem="{Binding DifficultLevel, Mode=TwoWay}">
+                <Label FontSize="Subtitle" Text="Difficult level:" />
+                <Picker
+                    Title="Select difficult level"
+                    FontSize="Subtitle"
+                    SelectedItem="{Binding DifficultLevel, Mode=TwoWay}">
                     <Picker.ItemsSource>
                         <x:Array Type="{x:Type x:String}">
                             <x:String>Unknown</x:String>
@@ -62,29 +62,30 @@
                     </Picker.ItemsSource>
                 </Picker>
 
-                <Label Text="Description:" FontSize="Subtitle"/>
-                <Editor Text="{Binding Description, Mode=TwoWay}"
-                        AutoSize="TextChanges"
-                        FontSize="Subtitle"/>
+                <Label FontSize="Subtitle" Text="Description:" />
+                <Editor
+                    AutoSize="TextChanges"
+                    FontSize="Subtitle"
+                    Text="{Binding Description, Mode=TwoWay}" />
 
                 <HorizontalStackLayout>
-                    <Label Text="Is favourite: " FontSize="Subtitle"/>
-                    <CheckBox IsChecked="{Binding IsFavourite, Mode=TwoWay}"/>
+                    <Label FontSize="Subtitle" Text="Is favourite: " />
+                    <CheckBox IsChecked="{Binding IsFavourite, Mode=TwoWay}" />
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout>
-                    <Label Text="Is difficult word: " FontSize="Subtitle"/>
-                    <CheckBox IsChecked="{Binding IsDifficultWord, Mode=TwoWay}"/>
+                    <Label FontSize="Subtitle" Text="Is difficult word: " />
+                    <CheckBox IsChecked="{Binding IsDifficultWord, Mode=TwoWay}" />
                 </HorizontalStackLayout>
-            
+
             </VerticalStackLayout>
 
-            <Button Text="ADD WORD"
-                    Clicked="AddButton_Clicked"/>
-            
-            <Button Text="Reset" 
-                    Style="{StaticResource Button2}"
-                    Clicked="ResetButton_Clicked"/>
+            <Button Clicked="AddButton_Clicked" Text="ADD WORD" />
+
+            <Button
+                Clicked="ResetButton_Clicked"
+                Style="{StaticResource Button2}"
+                Text="Reset" />
 
         </VerticalStackLayout>
     </ScrollView>

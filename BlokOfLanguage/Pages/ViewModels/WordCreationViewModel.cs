@@ -16,7 +16,7 @@ namespace BlokOfLanguage.Pages.ViewModels
                 OnPropertyChanged(nameof(TranslatedWord));
             }
         }
-
+        //todo usuwać graniczne spacje (z początku i końca wyrazu)
         private string _baseLanguageWord;
         public string BaseLanguageWord
         {
@@ -28,7 +28,7 @@ namespace BlokOfLanguage.Pages.ViewModels
             }
         }
 
-        private string _partOfSpeech;
+        private string _partOfSpeech = string.Empty;
         public string PartOfSpeech
         {
             get => _partOfSpeech;
@@ -39,7 +39,7 @@ namespace BlokOfLanguage.Pages.ViewModels
             }
         }
 
-        private string _difficultLevel;
+        private string _difficultLevel = "Unknown";
         public string DifficultLevel
         {
             get => _difficultLevel;
@@ -86,7 +86,9 @@ namespace BlokOfLanguage.Pages.ViewModels
         public async Task<bool> AddButtonClickedAsync()
         {
             // todo uniemożliwić jeśli nazwy puste
-            if (TranslatedWord == string.Empty || BaseLanguageWord == string.Empty)
+            if (TranslatedWord == string.Empty ||
+                BaseLanguageWord == string.Empty ||
+                PartOfSpeech == string.Empty)
                 return false;
 
 #if DEBUG
@@ -114,10 +116,16 @@ namespace BlokOfLanguage.Pages.ViewModels
 
         private async Task AddToDataBaseAsync()
         { // todo naprawić funkcję
+#if DEBUG
+            int i_debug = 0;
+#endif
             // Base Language Word //
             var q1 = $"SELECT * FROM BaseLanguageWord WHERE Word like '{BaseLanguageWord}';";
 
             var baseLanguageWords = Constants.DB.SelectQueryAboutBaseLanguageWordObjectsAsync(q1).Result;
+#if DEBUG
+            Debug.WriteLine($"Polecenie [{q1}] zwróciło {baseLanguageWords.Count} wierszy");
+#endif
 
             int baseLanguageWord_ID;
             if (baseLanguageWords.Count > 0)
@@ -125,14 +133,23 @@ namespace BlokOfLanguage.Pages.ViewModels
             else
             {
                 BaseLanguageWord b;
+#if DEBUG
+                i_debug =
+#endif
                 await Constants.DB.InsertObjectAsync(b = CreateBaseLanguageWordObject());
                 baseLanguageWord_ID = b.ID;
+#if DEBUG
+                Debug.WriteLine($"Polecenie [CreateBaseLanguageWordObject] utworzyło {i_debug} wierszy");
+#endif
             }
 
             // Translated Word //
             var q2 = $"SELECT * FROM TranslatedWord WHERE Word like '{TranslatedWord}';";
 
             var translatedWords = Constants.DB.SelectQueryAboutTranslatedWordObjectsAsync(q2).Result;
+#if DEBUG
+            Debug.WriteLine($"Polecenie [{q2}] zwróciło {translatedWords} wierszy");
+#endif
 
             int translateWord_ID;
             if (translatedWords.Count > 0)
@@ -140,8 +157,14 @@ namespace BlokOfLanguage.Pages.ViewModels
             else
             {
                 TranslatedWord t;
+#if DEBUG
+                i_debug =
+#endif
                 await Constants.DB.InsertObjectAsync(t = CreateTranslatedWordObject());
                 translateWord_ID = t.ID;
+#if DEBUG
+                Debug.WriteLine($"Polecenie [CreateTranslatedWordObject] utworzyło {i_debug} wierszy");
+#endif
             }
 
             // Word Meaning - Relation //
@@ -152,11 +175,22 @@ namespace BlokOfLanguage.Pages.ViewModels
             if (PartOfSpeech != null) q3 += $" AND PartOfSpeech like '{PartOfSpeech}'";
             q3 += ";";
             var wordMeanings = Constants.DB.SelectQueryAboutWordMeaningObjectsAsync(q3).Result;
+#if DEBUG
+            Debug.WriteLine($"Polecenie [{q3}] zwróciło {wordMeanings.Count} wierszy");
+#endif
 
             if (wordMeanings.Count == 0)
-                await Constants.DB.InsertObjectAsync(CreateWordMeaningObject(baseLanguageWord_ID, translateWord_ID));
+            {
 
-            Debug.WriteLine("[Database Insert] Successfull!");
+#if DEBUG
+                i_debug =
+#endif
+                await Constants.DB.InsertObjectAsync(CreateWordMeaningObject(baseLanguageWord_ID, translateWord_ID));
+#if DEBUG
+                Debug.WriteLine($"Polecenie [CreateWordMeaningObject] utworzyło {i_debug} wierszy");
+#endif
+            }
+
         }
 
         private void ResetForm()
@@ -164,7 +198,7 @@ namespace BlokOfLanguage.Pages.ViewModels
             TranslatedWord = string.Empty;
             BaseLanguageWord = string.Empty;
             PartOfSpeech = string.Empty;
-            DifficultLevel = string.Empty;
+            DifficultLevel = "Unknown";
             Description = string.Empty;
             IsFavourite = false;
             IsDifficultWord = false;

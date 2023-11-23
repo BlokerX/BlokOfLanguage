@@ -37,9 +37,9 @@ namespace BlokOfLanguage.Pages.ViewModels
             }
         }
 
-        private bool? _isSearch;
+        private bool _isSearch;
 
-        public bool? IsSearch
+        public bool IsSearch
         {
             get => _isSearch;
             set

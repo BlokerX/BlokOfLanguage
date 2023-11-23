@@ -1,47 +1,75 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:BlokOfLanguage.Pages.ViewModels"
-             x:Class="BlokOfLanguage.Pages.Views.WordsListPage"
-             Loaded="WordsListPage_Loaded">
+<ContentPage
+    x:Class="BlokOfLanguage.Pages.Views.WordsListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:BlokOfLanguage.Pages.ViewModels"
+    Loaded="WordsListPage_Loaded">
     <ContentPage.BindingContext>
-        <vm:WordListViewModel/>
+        <vm:WordListViewModel />
     </ContentPage.BindingContext>
+    <Grid VerticalOptions="FillAndExpand"
+          HorizontalOptions="FillAndExpand">
 
-    <VerticalStackLayout
-            Spacing="25"
-            Padding="30,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        
+        <SearchBar
+            VerticalOptions="Center"
+            HorizontalOptions="Fill"
+            Placeholder="Search word"
+            Text="{Binding SearchBarText, Mode=TwoWay}"
+            TextChanged="SearchEntry_TextChanged"
+            Margin="5,0"
+            Grid.Row="0"/>
 
-        <SearchBar Placeholder="Search word"
-                   Text="{Binding SearchBarText, Mode=TwoWay}"
-                   TextChanged="SearchEntry_TextChanged"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"/>
+        <ScrollView
+            Padding="5,0"
+            Grid.Row="1">
 
-        <HorizontalStackLayout IsVisible="{Binding IsSearch, Mode=TwoWay}">
-            <Label Text='Wyniki wyszukiwania "'/>
-            <Label Text="{Binding SearchBarText}"
-                   TextColor="{StaticResource TextColor2}"/>
-            <Label Text='":' />
-        </HorizontalStackLayout>
+            <VerticalStackLayout>
 
-        <ScrollView>
 
-            <ListView x:Name="ListOfItems"
-                      ItemsSource="{Binding Words}"
-                      ItemSelected="ListOfItems_ItemSelected"
-                      ItemTapped="ListOfItems_ItemTapped">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding TranslatedWord}"
-                                  Detail="{Binding BaseLanguageWord}"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                <HorizontalStackLayout
+                    IsVisible="{Binding IsSearch, Mode=TwoWay}"
+                    Padding="10,5">
+
+                    <Label
+                        Text="Wyniki wyszukiwania &quot;" />
+
+                    <Label 
+                        Text="{Binding SearchBarText}" 
+                        TextColor="{StaticResource TextColor2}" />
+
+                    <Label
+                        Text="&quot;:" />
+
+                </HorizontalStackLayout>
+
+                <ListView
+                    x:Name="ListOfItems"
+                    ItemSelected="ListOfItems_ItemSelected"
+                    ItemTapped="ListOfItems_ItemTapped"
+                    ItemsSource="{Binding Words}"
+                    Margin="0,5">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell
+                                    Text="{Binding TranslatedWord}" 
+                                    Detail="{Binding BaseLanguageWord}" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Button
+                        Command="{Binding RefreshButtonCommand}" 
+                        Text="Refresh"
+                        Margin="0,0,0,5"/>
+
+            </VerticalStackLayout>
         </ScrollView>
 
-        <Button Text="Refresh" 
-                Command="{Binding RefreshButtonCommand}"/>
-
-    </VerticalStackLayout>
+    </Grid>
 </ContentPage>

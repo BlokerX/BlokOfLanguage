@@ -14,5 +14,16 @@ public partial class MainPage : ContentPage
     {
         await ((MainViewModel)BindingContext)?.LoadLastWordsList();
     }
+
+    private void LastWordsList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    {
+        LastWordsList.SelectedItem = null;
+    }
+
+    private void LastWordsList_ItemTapped(object sender, ItemTappedEventArgs e)
+    {
+        var w = (WordObject)e.Item;
+        Navigation.PushAsync(new WordExplanationPage() { BindingContext = new WordExplanationViewModel(w) });
+    }
 }
 
