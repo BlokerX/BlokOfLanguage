@@ -6,17 +6,17 @@
     xmlns:local="clr-namespace:BlokOfLanguage"
     xmlns:v="clr-namespace:BlokOfLanguage.Pages.Views">
     <TabBar>
-        <Tab Title="Home"
-             Icon="cat.png">
-            <ShellContent ContentTemplate="{DataTemplate v:MainPage}"/>
+        <Tab Title="Home">
+            <ShellContent ContentTemplate="{DataTemplate v:MainPage}" />
         </Tab>
-        <Tab Title="WL"
-             Icon="cat.png">
-            <ShellContent ContentTemplate="{DataTemplate v:WordsListPage}"/>
+        <Tab Title="WL">
+            <ShellContent ContentTemplate="{DataTemplate v:WordsListPage}" />
         </Tab>
-        <Tab Title="ADD"
-             Icon="cat.png">
-            <ShellContent ContentTemplate="{DataTemplate v:WordCreationForm}"/>
+        <Tab Title="ADD">
+            <ShellContent ContentTemplate="{DataTemplate v:WordCreationForm}" />
+        </Tab>
+        <Tab Title="Settings">
+            <ShellContent ContentTemplate="{DataTemplate v:SettingsPage}" />
         </Tab>
     </TabBar>
 </Shell>

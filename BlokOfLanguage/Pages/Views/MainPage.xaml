@@ -1,48 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:BlokOfLanguage.Pages.ViewModels"
-             x:Class="BlokOfLanguage.Pages.Views.MainPage"
-             Loaded="ContentPage_Loaded">
+<ContentPage
+    x:Class="BlokOfLanguage.Pages.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:BlokOfLanguage.Pages.ViewModels"
+    Loaded="ContentPage_Loaded">
     <ContentPage.BindingContext>
-        <vm:MainViewModel/>
+        <vm:MainViewModel />
     </ContentPage.BindingContext>
 
     <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0">
+        <VerticalStackLayout Padding="30,0" Spacing="25">
 
             <Label
-                Text="Blok of language"
-                SemanticProperties.HeadingLevel="Level1"
                 FontSize="32"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                SemanticProperties.HeadingLevel="Level1"
+                Text="Blok of language" />
 
             <Label
-                Text="Acutation"
-                SemanticProperties.HeadingLevel="Level2"
                 FontSize="18"
-                HorizontalOptions="Center" />
+                HorizontalOptions="Center"
+                SemanticProperties.HeadingLevel="Level2"
+                Text="Acutation" />
 
-            <Border Style="{StaticResource Panel1}">
-                <VerticalStackLayout
-                    Padding="20,15,20,15">
+            <Border BackgroundColor="SeaGreen" Style="{StaticResource Panel1}">
+                <VerticalStackLayout Padding="20,15,20,15">
 
-                    <Label 
-                        Text="Last words:"
+                    <Label
+                        FontSize="18"
                         SemanticProperties.HeadingLevel="Level2"
-                        FontSize="18"/>
+                        Text="Last words:" />
 
-                    <ListView 
+                    <ListView
                         x:Name="LastWordsList"
                         ItemSelected="LastWordsList_ItemSelected"
                         ItemTapped="LastWordsList_ItemTapped"
                         ItemsSource="{Binding Words, Mode=TwoWay}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <TextCell Text="{Binding TranslatedWord}"
-                                  Detail="{Binding BaseLanguageWord}"/>
+                                <TextCell Detail="{Binding BaseLanguageWord}" Text="{Binding TranslatedWord}" />
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

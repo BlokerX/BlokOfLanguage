@@ -8,22 +8,38 @@
     <ContentPage.BindingContext>
         <vm:WordCreationViewModel />
     </ContentPage.BindingContext>
-    <ScrollView>
-        <VerticalStackLayout Padding="30,20" Spacing="10">
 
-            <Label FontSize="Title" Text="Add word" />
+    <ScrollView>
+
+        <VerticalStackLayout
+            Padding="30,20"
+            Spacing="10">
+
+            <Label
+                FontSize="Title"
+                Text="Add word" />
 
             <VerticalStackLayout Padding="5,0">
 
-                <Label FontSize="Subtitle" Text="Translate word:" />
-                <Entry FontSize="Subtitle" Text="{Binding TranslatedWord, Mode=TwoWay}" />
+                <Label
+                    FontSize="Subtitle"
+                    Text="Translate word:" />
+                <Entry
+                    FontSize="Subtitle"
+                    Text="{Binding TranslatedWord, Mode=TwoWay}" />
 
-                <Label FontSize="Subtitle" Text="Base language word:" />
-                <Entry FontSize="Subtitle" Text="{Binding BaseLanguageWord, Mode=TwoWay}" />
+                <Label
+                    FontSize="Subtitle"
+                    Text="Base language word:" />
+                <Entry
+                    FontSize="Subtitle"
+                    Text="{Binding BaseLanguageWord, Mode=TwoWay}" />
 
                 <Line />
 
-                <Label FontSize="Subtitle" Text="Part of speech:" />
+                <Label
+                    FontSize="Subtitle"
+                    Text="Part of speech:" />
                 <Picker
                     Title="Select part of speech"
                     FontSize="Subtitle"
@@ -44,7 +60,9 @@
                     </Picker.ItemsSource>
                 </Picker>
 
-                <Label FontSize="Subtitle" Text="Difficult level:" />
+                <Label
+                    FontSize="Subtitle"
+                    Text="Difficult level:" />
                 <Picker
                     Title="Select difficult level"
                     FontSize="Subtitle"
@@ -62,25 +80,33 @@
                     </Picker.ItemsSource>
                 </Picker>
 
-                <Label FontSize="Subtitle" Text="Description:" />
+                <Label
+                    FontSize="Subtitle"
+                    Text="Description:" />
                 <Editor
                     AutoSize="TextChanges"
                     FontSize="Subtitle"
                     Text="{Binding Description, Mode=TwoWay}" />
 
                 <HorizontalStackLayout>
-                    <Label FontSize="Subtitle" Text="Is favourite: " />
+                    <Label
+                        FontSize="Subtitle"
+                        Text="Is favourite: " />
                     <CheckBox IsChecked="{Binding IsFavourite, Mode=TwoWay}" />
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout>
-                    <Label FontSize="Subtitle" Text="Is difficult word: " />
+                    <Label
+                        FontSize="Subtitle"
+                        Text="Is difficult word: " />
                     <CheckBox IsChecked="{Binding IsDifficultWord, Mode=TwoWay}" />
                 </HorizontalStackLayout>
 
             </VerticalStackLayout>
 
-            <Button Clicked="AddButton_Clicked" Text="ADD WORD" />
+            <Button
+                Clicked="AddButton_Clicked"
+                Text="ADD WORD" />
 
             <Button
                 Clicked="ResetButton_Clicked"

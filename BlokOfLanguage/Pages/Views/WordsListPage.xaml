@@ -8,65 +8,54 @@
     <ContentPage.BindingContext>
         <vm:WordListViewModel />
     </ContentPage.BindingContext>
-    <Grid VerticalOptions="FillAndExpand"
-          HorizontalOptions="FillAndExpand">
+    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        
+
         <SearchBar
-            VerticalOptions="Center"
+            Grid.Row="0"
+            Margin="5,0"
             HorizontalOptions="Fill"
             Placeholder="Search word"
             Text="{Binding SearchBarText, Mode=TwoWay}"
             TextChanged="SearchEntry_TextChanged"
-            Margin="5,0"
-            Grid.Row="0"/>
+            VerticalOptions="Center" />
 
-        <ScrollView
-            Padding="5,0"
-            Grid.Row="1">
+        <ScrollView Grid.Row="1" Padding="5,0">
 
             <VerticalStackLayout>
 
 
-                <HorizontalStackLayout
-                    IsVisible="{Binding IsSearch, Mode=TwoWay}"
-                    Padding="10,5">
+                <HorizontalStackLayout Padding="10,5" IsVisible="{Binding IsSearch, Mode=TwoWay}">
 
-                    <Label
-                        Text="Wyniki wyszukiwania &quot;" />
+                    <Label Text="Wyniki wyszukiwania &quot;" />
 
-                    <Label 
-                        Text="{Binding SearchBarText}" 
-                        TextColor="{StaticResource TextColor2}" />
+                    <Label Text="{Binding SearchBarText}" TextColor="{StaticResource TextColor2}" />
 
-                    <Label
-                        Text="&quot;:" />
+                    <Label Text="&quot;:" />
 
                 </HorizontalStackLayout>
 
                 <ListView
                     x:Name="ListOfItems"
+                    Margin="0,5"
                     ItemSelected="ListOfItems_ItemSelected"
                     ItemTapped="ListOfItems_ItemTapped"
-                    ItemsSource="{Binding Words}"
-                    Margin="0,5">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextCell
-                                    Text="{Binding TranslatedWord}" 
-                                    Detail="{Binding BaseLanguageWord}" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    ItemsSource="{Binding Words}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Detail="{Binding BaseLanguageWord}" Text="{Binding TranslatedWord}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-                    <Button
-                        Command="{Binding RefreshButtonCommand}" 
-                        Text="Refresh"
-                        Margin="0,0,0,5"/>
+                <Button
+                    Margin="0,0,0,5"
+                    Command="{Binding RefreshButtonCommand}"
+                    Text="Refresh" />
 
             </VerticalStackLayout>
         </ScrollView>

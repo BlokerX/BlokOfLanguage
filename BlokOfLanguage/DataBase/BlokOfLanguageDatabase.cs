@@ -1,6 +1,8 @@
 ﻿using BlokOfLanguage.DataBase.EntityObjects;
 using SQLite;
+#if DEBUG
 using System.Diagnostics;
+#endif
 
 namespace BlokOfLanguage.DataBase
 {

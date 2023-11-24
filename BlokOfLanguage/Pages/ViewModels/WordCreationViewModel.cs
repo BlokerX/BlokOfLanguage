@@ -1,6 +1,8 @@
 ﻿using BlokOfLanguage.DataBase;
 using BlokOfLanguage.DataBase.EntityObjects;
+#if DEBUG
 using System.Diagnostics;
+#endif
 
 namespace BlokOfLanguage.Pages.ViewModels
 {
