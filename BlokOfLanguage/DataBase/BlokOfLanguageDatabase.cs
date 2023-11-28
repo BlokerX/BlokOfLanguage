@@ -1,5 +1,6 @@
 ﻿using BlokOfLanguage.DataBase.EntityObjects;
 using SQLite;
+
 #if DEBUG
 using System.Diagnostics;
 #endif
@@ -84,7 +85,7 @@ namespace BlokOfLanguage.DataBase
 
                 ).Result;
         }
-        
+
         public async Task<List<WordObject>> GetWordObjectsByDateLimitAsync(int count)
         {
             await Init();
@@ -337,5 +338,146 @@ namespace BlokOfLanguage.DataBase
 
         #endregion
 
+        #region Export and Import
+
+
+        public async Task<string> ExportDataToQuery() // todo usprawnić w przyszłości
+        {
+            string exportQuery = string.Empty;
+
+            exportQuery += "[BaseLanugageWord]\n";
+
+            foreach (var item in await GetWordObjectsAsync())
+            {
+                string line = $"{item.BaseLanguageWord_ID},{item.BaseLanguageWord}\n";
+                exportQuery += line;
+            }
+
+            exportQuery += "[TranslatedWord]\n";
+
+            foreach (var item in await GetWordObjectsAsync())
+            {
+                string line = $"{item.TranslatedWord_ID},{item.TranslatedWord},{item.IsDifficultWord},{item.IsFavourite},{item.DifficultLevel}\n";
+                exportQuery += line;
+            }
+
+            exportQuery += "[WordMeaning]\n";
+
+            foreach (var item in await GetWordObjectsAsync())
+            {
+                string line = $"{item.WordMeaning_ID},{item.BaseLanguageWord_ID},{item.TranslatedWord_ID},{item.PartOfSpeech},{item.Description},{item.LastUpdateTime}\n";
+                exportQuery += line;
+            }
+
+            return exportQuery;
+        }
+
+        public async Task ImportDataFromQuery(string[] source) // todo usprawnić w przyszłości
+        {
+            int i = 0;
+            foreach (var line in source)
+            {
+                if (line == "[BaseLanguageWord]")//todo bool nie działa i parsowanie
+                {
+                    i = 1; continue;
+                }
+                if (line == "[TranslatedWord]")
+                {
+                    i = 2; continue;
+                }
+                if (line == "[WordMeaning]")
+                {
+                    i = 3;
+                    continue;
+                }
+
+                switch (i)
+                {
+                    case 1:
+                        if (true)
+                        {
+                            int j = 0;
+                            string id = string.Empty, word = string.Empty;
+                            foreach (char letter in line)
+                            {
+                                if (letter == ',')
+                                    j++;
+                                if (j == 0) id += letter;
+
+                                if (j == 1) word += letter;
+
+                            }
+                            await Database.InsertAsync(new BaseLanguageWord()
+                            {
+                                ID = int.Parse(id),
+                                Word = word
+                            });
+                        }
+                        break;
+
+                    case 2:
+                        if (true)
+                        {
+
+                            int j = 0;
+                            string id = string.Empty, word = string.Empty, isDifficultWord = string.Empty, isFavourite = string.Empty, difficultLevel = string.Empty;
+                            foreach (char letter in line)
+                            {
+                                if (letter == ',')
+                                    j++;
+                                if (j == 0) id += letter;
+                                if (j == 1) word += letter;
+                                if (j == 2) isDifficultWord += letter;
+                                if (j == 3) isFavourite += letter;
+                                if (j == 4) difficultLevel += letter;
+
+                            }
+                            await Database.InsertAsync(new TranslatedWord()
+                            {
+                                ID = int.Parse(id),
+                                Word = word,
+                                IsDifficultWord = bool.Parse(isDifficultWord),
+                                IsFavourite = bool.Parse(isFavourite),
+                                DifficultLevel = difficultLevel
+                            });
+                        }
+                        break;
+
+                    case 3:
+                        if (true)
+                        {
+                            int j = 0;
+                            string id = string.Empty, blw_id = string.Empty, tw_id = string.Empty, partOfSpeech = string.Empty, description = string.Empty, lastUpdateTime = string.Empty;
+                            foreach (char letter in line)
+                            {
+                                if (letter == ',')
+                                    j++;
+                                if (j == 0) id += letter;
+                                if (j == 1) blw_id += letter;
+                                if (j == 2) tw_id += letter;
+                                if (j == 3) partOfSpeech += letter;
+                                if (j == 4) description += letter;
+                                if (j == 5) lastUpdateTime += letter;
+
+                            }
+                            await Database.InsertAsync(new WordMeaning()
+                            {
+                                ID = int.Parse(id),
+                                BaseLanguageWord_ID = int.Parse(blw_id),
+                                TranslatedWord_ID = int.Parse(tw_id),
+                                PartOfSpeech = partOfSpeech,
+                                Description = description,
+                                LastUpdateTime = DateTime.Parse(lastUpdateTime)
+                            });
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+
+        #endregion
     }
 }
