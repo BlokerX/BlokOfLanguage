@@ -345,7 +345,7 @@ namespace BlokOfLanguage.DataBase
         {
             string exportQuery = string.Empty;
 
-            exportQuery += "[BaseLanugageWord]\n";
+            exportQuery += "[BaseLanguageWord]\n";
 
             foreach (var item in await GetWordObjectsAsync())
             {
@@ -368,6 +368,7 @@ namespace BlokOfLanguage.DataBase
                 string line = $"{item.WordMeaning_ID},{item.BaseLanguageWord_ID},{item.TranslatedWord_ID},{item.PartOfSpeech},{item.Description},{item.LastUpdateTime}\n";
                 exportQuery += line;
             }
+            exportQuery += "[END]";
 
             return exportQuery;
         }
@@ -390,6 +391,10 @@ namespace BlokOfLanguage.DataBase
                     i = 3;
                     continue;
                 }
+                if (line == "[END]")
+                {
+                    break;
+                }
 
                 switch (i)
                 {
@@ -401,7 +406,10 @@ namespace BlokOfLanguage.DataBase
                             foreach (char letter in line)
                             {
                                 if (letter == ',')
+                                {
                                     j++;
+                                    continue;
+                                }
                                 if (j == 0) id += letter;
 
                                 if (j == 1) word += letter;
@@ -424,7 +432,10 @@ namespace BlokOfLanguage.DataBase
                             foreach (char letter in line)
                             {
                                 if (letter == ',')
+                                {
                                     j++;
+                                    continue;
+                                }
                                 if (j == 0) id += letter;
                                 if (j == 1) word += letter;
                                 if (j == 2) isDifficultWord += letter;
@@ -436,8 +447,8 @@ namespace BlokOfLanguage.DataBase
                             {
                                 ID = int.Parse(id),
                                 Word = word,
-                                IsDifficultWord = bool.Parse(isDifficultWord),
-                                IsFavourite = bool.Parse(isFavourite),
+                                IsDifficultWord = bool.Parse(isDifficultWord.ToLower()),
+                                IsFavourite = bool.Parse(isFavourite.ToLower()),
                                 DifficultLevel = difficultLevel
                             });
                         }
@@ -451,7 +462,10 @@ namespace BlokOfLanguage.DataBase
                             foreach (char letter in line)
                             {
                                 if (letter == ',')
+                                {
                                     j++;
+                                    continue;
+                                }
                                 if (j == 0) id += letter;
                                 if (j == 1) blw_id += letter;
                                 if (j == 2) tw_id += letter;
