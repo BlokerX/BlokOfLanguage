@@ -27,7 +27,12 @@ namespace BlokOfLanguage.Pages.ViewModels
             {
                 Words = await Constants.DB.GetWordObjectsByDateLimitAsync(5);
             }
-            catch (Exception ex) { Debug.WriteLine("[EXCEPTION]: " + ex); }
+            catch (Exception ex)
+            {
+#if DEBUG
+                Debug.WriteLine("[EXCEPTION]: " + ex);
+#endif
+            }
         }
     }
 }

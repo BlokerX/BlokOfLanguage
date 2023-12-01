@@ -10,7 +10,10 @@
         // create the database if it doesn't exist
         SQLite.SQLiteOpenFlags.Create |
         // enable multi-threaded database access
-        SQLite.SQLiteOpenFlags.SharedCache;
+        SQLite.SQLiteOpenFlags.SharedCache /*| 
+        
+            SQLite.SQLiteOpenFlags.ProtectionNone*/
+        ;
         //todo dodać magazyn zewnętrzny aby był ciągły dostęp
         public static string DatabasePath =>
             Path.Combine(FileSystem.AppDataDirectory, DatabaseFilename);

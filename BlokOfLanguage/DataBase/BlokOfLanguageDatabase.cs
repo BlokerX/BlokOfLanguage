@@ -24,19 +24,24 @@ namespace BlokOfLanguage.DataBase
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
 
             await Database.ExecuteAsync("PRAGMA encoding=\"UTF-8\";");
-
-            var result1 = await Database.CreateTableAsync<WordMeaning>();
-            var result2 = await Database.CreateTableAsync<TranslatedWord>();
-            var result3 = await Database.CreateTableAsync<BaseLanguageWord>();
+            await CreateTables();
 
 #if DEBUG
             Debug.WriteLine("DB path:" + Database.DatabasePath);
 #endif
         }
 
+        private async Task CreateTables()
+        {
+            var result1 = await Database.CreateTableAsync<WordMeaning>();
+            var result2 = await Database.CreateTableAsync<TranslatedWord>();
+            var result3 = await Database.CreateTableAsync<BaseLanguageWord>();
+        }
+
         async private void testFn()
         {
             var result = await GetWordObjectsAsync();
+#if DEBUG
             foreach (var item in result)
             {
                 Debug.WriteLine("[OBJECT]" +
@@ -54,6 +59,7 @@ namespace BlokOfLanguage.DataBase
                     );
             }
             Debug.WriteLine("s");
+#endif
         }
 
         public async Task<List<WordObject>> GetWordObjectsAsync()
@@ -343,6 +349,8 @@ namespace BlokOfLanguage.DataBase
 
         public async Task<string> ExportDataToQuery() // todo usprawnić w przyszłości
         {
+            await Init();
+
             string exportQuery = string.Empty;
 
             exportQuery += "[BaseLanguageWord]\n";
@@ -375,6 +383,8 @@ namespace BlokOfLanguage.DataBase
 
         public async Task ImportDataFromQuery(string[] source) // todo usprawnić w przyszłości
         {
+            await Init();
+
             int i = 0;
             foreach (var line in source)
             {
@@ -490,6 +500,17 @@ namespace BlokOfLanguage.DataBase
                         break;
                 }
             }
+        }
+
+        public async Task ClearDatabase()
+        {
+            await Init();
+
+            await Database.DropTableAsync<BaseLanguageWord>();
+            await Database.DropTableAsync<TranslatedWord>();
+            await Database.DropTableAsync<WordMeaning>();
+
+            await CreateTables();
         }
 
         #endregion

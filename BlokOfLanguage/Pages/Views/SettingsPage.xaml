@@ -8,9 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:BlokOfLanguage.Pages.ViewModels">
 
-    <ContentPage.BindingContext>
+    <!--<ContentPage.BindingContext>
         <vm:SettingsViewModel />
-    </ContentPage.BindingContext>
+    </ContentPage.BindingContext>-->
 
     <ContentPage.Content>
 
@@ -46,6 +46,10 @@
                 <Button
                     Command="{Binding ExportCommand}"
                     Text="Export data" />
+                
+                <Button
+                    Command="{Binding ClearDatabaseCommand}"
+                    Text="Clear database" />
 
 
 
