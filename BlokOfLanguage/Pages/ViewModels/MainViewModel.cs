@@ -25,7 +25,7 @@ namespace BlokOfLanguage.Pages.ViewModels
         {
             try
             {
-                Words = await Constants.DB.GetWordObjectsByDateLimitAsync(5);
+                Words = await Constants.DB.GetWordObjectsOrderByDateLimitAsync(5);
             }
             catch (Exception ex)
             {

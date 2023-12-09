@@ -8,32 +8,81 @@
     <ContentPage.BindingContext>
         <vm:WordListViewModel />
     </ContentPage.BindingContext>
-    <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+    <Grid
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="60" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <SearchBar
-            Grid.Row="0"
-            Margin="5,0"
-            HorizontalOptions="Fill"
-            Placeholder="Search word"
-            Text="{Binding SearchBarText, Mode=TwoWay}"
-            TextChanged="SearchEntry_TextChanged"
-            VerticalOptions="Center" />
+        <VerticalStackLayout Grid.Row="0">
 
-        <ScrollView Grid.Row="1" Padding="5,0">
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="60" />
+                </Grid.ColumnDefinitions>
+
+                <SearchBar
+                    Grid.Column="0"
+                    Margin="5,0"
+                    HorizontalOptions="Fill"
+                    Placeholder="Search word"
+                    Text="{Binding SearchBarText, Mode=TwoWay}"
+                    TextChanged="SearchEntry_TextChanged"
+                    VerticalOptions="Center" />
+
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding SortButtonCommand}"
+                    Text="Sort" />
+
+            </Grid>
+
+            <Border
+                x:Name="filtersPanel"
+                IsVisible="{Binding FilterVisible, Mode=TwoWay}"
+                Stroke="SlateGray">
+
+                <VerticalStackLayout Padding="10">
+                    <HorizontalStackLayout>
+                        <Label Text="Translated Word: " />
+                        <CheckBox CheckedChanged="TranslatedWordCheckBox_CheckedChanged"
+                                  IsChecked="True"/>
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label Text="Base Language Word: " />
+                        <CheckBox CheckedChanged="BaseLanguageWordCheckBox_CheckedChanged" />
+                    </HorizontalStackLayout>
+                    <HorizontalStackLayout>
+                        <Label Text="Data: " />
+                        <CheckBox CheckedChanged="DataCheckBox_CheckedChanged" />
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+
+        <ScrollView
+            Grid.Row="1"
+            Padding="5,0">
 
             <VerticalStackLayout>
 
 
-                <HorizontalStackLayout Padding="10,5" IsVisible="{Binding IsSearch, Mode=TwoWay}">
+                <HorizontalStackLayout
+                    Padding="10,5"
+                    IsVisible="{Binding IsSearch, Mode=TwoWay}">
 
                     <Label Text="Wyniki wyszukiwania &quot;" />
 
-                    <Label Text="{Binding SearchBarText}" TextColor="{StaticResource TextColor2}" />
+                    <Label
+                        Text="{Binding SearchBarText}"
+                        TextColor="{StaticResource TextColor2}" />
 
                     <Label Text="&quot;:" />
 
@@ -47,7 +96,9 @@
                     ItemsSource="{Binding Words}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextCell Detail="{Binding BaseLanguageWord}" Text="{Binding TranslatedWord}" />
+                            <TextCell
+                                Detail="{Binding BaseLanguageWord}"
+                                Text="{Binding TranslatedWord}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

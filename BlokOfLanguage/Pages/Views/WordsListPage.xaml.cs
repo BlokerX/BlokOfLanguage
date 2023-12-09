@@ -35,4 +35,46 @@ public partial class WordsListPage : ContentPage
     {
         ((WordListViewModel)BindingContext)?.RefreshList();
     }
+
+    private void TranslatedWordCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        var vm = ((WordListViewModel)BindingContext);
+        if (vm != null)
+            if (e.Value)
+            {
+                vm.Filter = WordListViewModel.Filters.TranslatedWordAsc;
+            }
+            else
+            {
+                vm.Filter = WordListViewModel.Filters.TranslatedWordDesc;
+            }
+    }
+
+    private void BaseLanguageWordCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        var vm = ((WordListViewModel)BindingContext);
+        if (vm != null)
+            if (e.Value)
+            {
+                vm.Filter = WordListViewModel.Filters.BaseLanguageWordAsc;
+            }
+            else
+            {
+                vm.Filter = WordListViewModel.Filters.BaseLanguageWordDesc;
+            }
+    }
+
+    private void DataCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        var vm = ((WordListViewModel)BindingContext);
+        if (vm != null)
+            if (e.Value)
+            {
+                vm.Filter = WordListViewModel.Filters.DateTimeAsc;
+            }
+            else
+            {
+                vm.Filter = WordListViewModel.Filters.DateTimeDesc;
+            }
+    }
 }

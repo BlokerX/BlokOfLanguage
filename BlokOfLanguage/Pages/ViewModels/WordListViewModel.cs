@@ -9,9 +9,25 @@ namespace BlokOfLanguage.Pages.ViewModels
         public WordListViewModel()
         {
             RefreshButtonCommand = new Command(RefreshList);
+            SortButtonCommand = new Command(Sort);
         }
 
         public ICommand RefreshButtonCommand { get; set; }
+        public ICommand SortButtonCommand { get; set; }
+        public void Sort() => FilterVisible = !FilterVisible;
+
+
+        private bool _filterVisible = false;
+
+        public bool FilterVisible
+        {
+            get => _filterVisible;
+            set
+            {
+                _filterVisible = value;
+                OnPropertyChanged(nameof(FilterVisible));
+            }
+        }
 
         private List<WordObject> _words;
 
@@ -22,6 +38,20 @@ namespace BlokOfLanguage.Pages.ViewModels
             {
                 _words = value;
                 OnPropertyChanged(nameof(Words));
+            }
+        }
+
+
+        private Filters _filter = Filters.TranslatedWordAsc;
+
+        public Filters Filter
+        {
+            get => _filter;
+            set
+            {
+                _filter = value;
+                OnPropertyChanged(nameof(Filter));
+                RefreshList();
             }
         }
 
@@ -58,9 +88,33 @@ namespace BlokOfLanguage.Pages.ViewModels
             }
             else
             {
+                switch (Filter)
+                {
+                    case Filters.TranslatedWordAsc:
+                        Words = Constants.DB.GetWordObjectsOrderByTranslatedWordAsync(true).Result;
+                        break;
+                    case Filters.BaseLanguageWordAsc:
+                        //Words = Constants.DB.GetWordObjectsByBaseLanguageWordAsync(true).Result;break;
+                    case Filters.DateTimeAsc://break;
+                    default: 
                 Words = Constants.DB.GetWordObjectsAsync().Result;
+                        break;
+                }
+
                 IsSearch = false;
             }
+        }
+
+        public enum Filters
+        {
+            TranslatedWordAsc,
+            TranslatedWordDesc,
+
+            BaseLanguageWordAsc,
+            BaseLanguageWordDesc,
+
+            DateTimeAsc,
+            DateTimeDesc
         }
 
     }

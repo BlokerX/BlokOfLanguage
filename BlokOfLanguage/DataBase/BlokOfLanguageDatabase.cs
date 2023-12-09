@@ -92,7 +92,68 @@ namespace BlokOfLanguage.DataBase
                 ).Result;
         }
 
-        public async Task<List<WordObject>> GetWordObjectsByDateLimitAsync(int count)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="orderByTranslatedWord">
+        /// True -> Asc,
+        /// False -> Desc, 
+        /// null -> without order by
+        /// </param>
+        /// /// <param name="orderByBaseLanguageWord">
+        /// True -> Asc,
+        /// False -> Desc, 
+        /// null -> without order by
+        /// </param>
+        /// <returns></returns>
+        public async Task<List<WordObject>> GetWordObjectsOrderByTranslatedWordAsync(bool? orderByTranslatedWord = null, bool? orderByBaseLanguageWord = null)
+        {
+            await Init();
+            string Query = " SELECT " +
+
+                            " T.Word         as      \"TranslatedWord\"      , " +
+                            " B.Word         as      \"BaseLanguageWord\"    , " +
+                            " B.ID           as      \"BaseLanguageWord_ID\" , " +
+                            " T.ID           as      \"TranslatedWord_ID\"    , " +
+                            " M.ID           as      \"WordMeaning_ID\"      , " +
+                            " M.PartOfSpeech                                 , " +
+                            " M.LastUpdateTime                               , " +
+                            " T.DifficultLevel                               , " +
+                            " M.Description                                  , " +
+                            " T.IsDifficultWord                              , " +
+                            " T.IsFavourite                                    " +
+
+                            " from WordMeaning as M                            " +
+
+                            " INNER JOIN BaseLanguageWord as B                 " +
+                            " ON M.BaseLanguageWord_ID=B.ID                    " +
+
+                            " INNER JOIN TranslatedWord as T                   " +
+                            " ON M.TranslatedWord_ID=T.ID                      ";
+
+            if (orderByTranslatedWord != null)
+            {
+                Query += " ORDER BY ";
+                if (orderByTranslatedWord == true)
+                    Query += " T.Word ASC ";
+                else if (orderByTranslatedWord == false)
+                    Query += " T.Word DESC ";
+
+                if (orderByBaseLanguageWord != null)
+                {
+                    Query += " , ";
+                    if (orderByBaseLanguageWord == true)
+                        Query += " B.Word ASC ";
+                    else if (orderByBaseLanguageWord == false)
+                        Query += " B.Word DESC ";
+                }
+            }
+            Query += ";";
+
+            return Database.QueryAsync<WordObject>(query: Query).Result;
+        }
+
+        public async Task<List<WordObject>> GetWordObjectsOrderByDateLimitAsync(int count)
         {
             await Init();
             return Database.QueryAsync<WordObject>(query:
